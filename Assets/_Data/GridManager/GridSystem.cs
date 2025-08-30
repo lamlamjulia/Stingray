@@ -8,14 +8,14 @@ public class GridSystem: GridAbstract
     public List<Node> nodes;
     public float width = 18;
     public float height = 11;
-    public float offsetY = 0.5f;
+    public float offsetX = 0.19f;
     public BlocksProfile blocksProfile;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.InitGridSystem();
-        this.Start();
+        //this.Start();
         //this.LoadBlockProfile();
     }
     protected override void Start()
@@ -37,7 +37,8 @@ public class GridSystem: GridAbstract
                 Node node = new Node()
                 {
                     x = x,
-                    y = y
+                    y = y,
+                    posX = x - (this.offsetX*x)
                 };
                 this.nodes.Add(node);
             }
@@ -48,8 +49,12 @@ public class GridSystem: GridAbstract
         Vector3 pos = Vector3.zero;
         foreach (Node node in this.nodes)
         {
-            pos.x = node.x;
-            pos.y = node.y-this.offsetY;
+            if(node.x == 0) continue;
+            if(node.y == 0) continue;
+            if(node.x == this.width - 1) continue;
+            if(node.y == this.height - 1) continue;
+            pos.x = node.posX;
+            pos.y = node.y;
             Transform block = this.ctrl.blockSpawner.Spawn(BlockSpawner.BLOCK, pos, Quaternion.identity);
             block.gameObject.SetActive(true);
         }

@@ -225,7 +225,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 5, z: -10}
+  m_LocalPosition: {x: 5, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -340,6 +340,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &701149804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 701149805}
+  m_Layer: 0
+  m_Name: Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &701149805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701149804}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1175657144}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1084309355
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,8 +397,8 @@ Transform:
   m_GameObject: {fileID: 1084309355}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.004, y: 0.011, z: -0.5}
-  m_LocalScale: {x: 2.527992, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1598783291}
@@ -459,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383e8ea0acb0b4144a6e74cac4ed1cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlockSpawner
-  holder: {fileID: 2086990768}
+  holder: {fileID: 701149805}
   spawnedCount: 0
   prefabs:
   - {fileID: 1598783291}
@@ -477,7 +508,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2086990768}
+  - {fileID: 701149805}
   - {fileID: 1767482224}
   m_Father: {fileID: 2020123694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -529,799 +560,997 @@ MonoBehaviour:
   nodes:
   - x: 0
     y: 0
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 1
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 2
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 3
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 4
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 5
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 6
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 7
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 8
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 9
+    posX: 0
     weight: 1
     occupied: 0
   - x: 0
     y: 10
+    posX: 0
     weight: 1
     occupied: 0
   - x: 1
     y: 0
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 1
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 2
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 3
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 4
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 5
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 6
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 7
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 8
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 9
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 1
     y: 10
+    posX: 0.81
     weight: 1
     occupied: 0
   - x: 2
     y: 0
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 1
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 2
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 3
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 4
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 5
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 6
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 7
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 8
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 9
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 2
     y: 10
+    posX: 1.62
     weight: 1
     occupied: 0
   - x: 3
     y: 0
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 1
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 2
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 3
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 4
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 5
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 6
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 7
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 8
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 9
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 3
     y: 10
+    posX: 2.43
     weight: 1
     occupied: 0
   - x: 4
     y: 0
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 1
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 2
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 3
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 4
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 5
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 6
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 7
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 8
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 9
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 4
     y: 10
+    posX: 3.24
     weight: 1
     occupied: 0
   - x: 5
     y: 0
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 1
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 2
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 3
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 4
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 5
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 6
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 7
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 8
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 9
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 5
     y: 10
+    posX: 4.05
     weight: 1
     occupied: 0
   - x: 6
     y: 0
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 1
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 2
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 3
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 4
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 5
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 6
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 7
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 8
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 9
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 6
     y: 10
+    posX: 4.86
     weight: 1
     occupied: 0
   - x: 7
     y: 0
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 1
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 2
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 3
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 4
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 5
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 6
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 7
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 8
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 9
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 7
     y: 10
+    posX: 5.67
     weight: 1
     occupied: 0
   - x: 8
     y: 0
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 1
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 2
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 3
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 4
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 5
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 6
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 7
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 8
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 9
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 8
     y: 10
+    posX: 6.48
     weight: 1
     occupied: 0
   - x: 9
     y: 0
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 1
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 2
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 3
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 4
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 5
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 6
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 7
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 8
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 9
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 9
     y: 10
+    posX: 7.29
     weight: 1
     occupied: 0
   - x: 10
     y: 0
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 1
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 2
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 3
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 4
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 5
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 6
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 7
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 8
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 9
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 10
     y: 10
+    posX: 8.1
     weight: 1
     occupied: 0
   - x: 11
     y: 0
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 1
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 2
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 3
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 4
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 5
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 6
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 7
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 8
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 9
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 11
     y: 10
+    posX: 8.91
     weight: 1
     occupied: 0
   - x: 12
     y: 0
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 1
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 2
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 3
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 4
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 5
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 6
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 7
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 8
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 9
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 12
     y: 10
+    posX: 9.72
     weight: 1
     occupied: 0
   - x: 13
     y: 0
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 1
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 2
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 3
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 4
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 5
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 6
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 7
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 8
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 9
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 13
     y: 10
+    posX: 10.53
     weight: 1
     occupied: 0
   - x: 14
     y: 0
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 1
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 2
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 3
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 4
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 5
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 6
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 7
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 8
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 9
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 14
     y: 10
+    posX: 11.34
     weight: 1
     occupied: 0
   - x: 15
     y: 0
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 1
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 2
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 3
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 4
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 5
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 6
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 7
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 8
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 9
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 15
     y: 10
+    posX: 12.15
     weight: 1
     occupied: 0
   - x: 16
     y: 0
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 1
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 2
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 3
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 4
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 5
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 6
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 7
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 8
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 9
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 16
     y: 10
+    posX: 12.96
     weight: 1
     occupied: 0
   - x: 17
     y: 0
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 1
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 2
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 3
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 4
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 5
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 6
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 7
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 8
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 9
+    posX: 13.77
     weight: 1
     occupied: 0
   - x: 17
     y: 10
+    posX: 13.77
     weight: 1
     occupied: 0
   width: 18
   height: 11
-  offsetY: 0.5
+  offsetX: 0.19
   blocksProfile: {fileID: 0}
 --- !u!1 &1598783290
 GameObject:
@@ -1339,7 +1568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1598783291
 Transform:
   m_ObjectHideFlags: 0
@@ -1420,7 +1649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1788916104
 Transform:
   m_ObjectHideFlags: 0
@@ -1560,37 +1789,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManagerCtrl
   blockSpawner: {fileID: 1175657143}
---- !u!1 &2086990767
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2086990768}
-  m_Layer: 0
-  m_Name: Holder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2086990768
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2086990767}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1175657144}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
