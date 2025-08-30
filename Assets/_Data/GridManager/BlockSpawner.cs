@@ -12,4 +12,12 @@ public class BlockSpawner: Spawner
         if (BlockSpawner.instance != null) Debug.LogError("Only 1 Spawner should exist");
         BlockSpawner.instance = this;
     }
+    public virtual void CleanPool()
+    {
+        this.spawnedCount = 0;
+        foreach(Transform child in this.holder)
+        {
+            DestroyImmediate(child.gameObject);
+        }    
+    }
 }

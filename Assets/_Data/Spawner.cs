@@ -49,76 +49,76 @@ public abstract class Spawner : PikaMonoBehaviour
         }
     }
 
-    //public virtual Transform Spawn(string prefabName, Vector3 spawnPos)
-    //{
-    //    return this.Spawn(prefabName, spawnPos, Quaternion.identity);
-    //}
+    public virtual Transform Spawn(string prefabName, Vector3 spawnPos)
+    {
+        return this.Spawn(prefabName, spawnPos, Quaternion.identity);
+    }
 
-    //public virtual Transform Spawn(string prefabName, Vector3 spawnPos, Quaternion rotation)
-    //{
-    //    Transform prefab = this.GetPrefabByName(prefabName);
-    //    if (prefab == null)
-    //    {
-    //        Debug.LogWarning("Prefab not found: " + prefabName);
-    //        return null;
-    //    }
+    public virtual Transform Spawn(string prefabName, Vector3 spawnPos, Quaternion rotation)
+    {
+        Transform prefab = this.GetPrefabByName(prefabName);
+        if (prefab == null)
+        {
+            Debug.LogWarning("Prefab not found: " + prefabName);
+            return null;
+        }
 
-    //    return this.Spawn(prefab, spawnPos, rotation);
-    //}
+        return this.Spawn(prefab, spawnPos, rotation);
+    }
 
-    //public virtual Transform Spawn(Transform prefab, Vector3 spawnPos, Quaternion rotation)
-    //{
-    //    Transform newPrefab = this.GetObjectFromPool(prefab);
-    //    newPrefab.SetPositionAndRotation(spawnPos, rotation);
+    public virtual Transform Spawn(Transform prefab, Vector3 spawnPos, Quaternion rotation)
+    {
+        Transform newPrefab = this.GetObjectFromPool(prefab);
+        newPrefab.SetPositionAndRotation(spawnPos, rotation);
 
-    //    newPrefab.SetParent(this.holder);
-    //    this.spawnedCount++;
+        newPrefab.SetParent(this.holder);
+        this.spawnedCount++;
 
-    //    return newPrefab;
-    //}
+        return newPrefab;
+    }
 
-    //protected virtual Transform GetObjectFromPool(Transform prefab)
-    //{
-    //    foreach (Transform poolObj in this.poolObjs)
-    //    {
-    //        if (poolObj == null) continue;
+    protected virtual Transform GetObjectFromPool(Transform prefab)
+    {
+        foreach (Transform poolObj in this.poolObjs)
+        {
+            if (poolObj == null) continue;
 
-    //        if (poolObj.name == prefab.name)
-    //        {
-    //            this.poolObjs.Remove(poolObj);
-    //            return poolObj;
-    //        }
-    //    }
+            if (poolObj.name == prefab.name)
+            {
+                this.poolObjs.Remove(poolObj);
+                return poolObj;
+            }
+        }
 
-    //    Transform newPrefab = Instantiate(prefab);
-    //    newPrefab.name = prefab.name;
-    //    return newPrefab;
-    //}
+        Transform newPrefab = Instantiate(prefab);
+        newPrefab.name = prefab.name;
+        return newPrefab;
+    }
 
-    //public virtual void Despawn(Transform obj)
-    //{
-    //    if (this.poolObjs.Contains(obj)) return;
+    public virtual void Despawn(Transform obj)
+    {
+        if (this.poolObjs.Contains(obj)) return;
 
-    //    this.poolObjs.Add(obj);
-    //    obj.gameObject.SetActive(false);
-    //    this.spawnedCount--;
-    //}
+        this.poolObjs.Add(obj);
+        obj.gameObject.SetActive(false);
+        this.spawnedCount--;
+    }
 
-    //public virtual Transform GetPrefabByName(string prefabName)
-    //{
-    //    foreach (Transform prefab in this.prefabs)
-    //    {
-    //        if (prefab.name == prefabName) return prefab;
-    //    }
+    public virtual Transform GetPrefabByName(string prefabName)
+    {
+        foreach (Transform prefab in this.prefabs)
+        {
+            if (prefab.name == prefabName) return prefab;
+        }
 
-    //    return null;
-    //}
+        return null;
+    }
 
-    //public virtual Transform RandomPrefab()
-    //{
-    //    int rand = Random.Range(0, this.prefabs.Count);
-    //    return this.prefabs[rand];
-    //}
+    public virtual Transform RandomPrefab()
+    {
+        int rand = Random.Range(0, this.prefabs.Count);
+        return this.prefabs[rand];
+    }
 
     public virtual void Hold(Transform obj)
     {
