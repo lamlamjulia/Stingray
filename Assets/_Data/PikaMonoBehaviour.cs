@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PikaMonoBehaviourScript: MonoBehaviour
+public class PikaMonoBehaviour: MonoBehaviour
 {
     protected virtual void Awake()
     {

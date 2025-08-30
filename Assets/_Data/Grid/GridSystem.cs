@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GridSystem: PikaMonoBehaviourScript
+public class GridSystem: PikaMonoBehaviour
 {
     public List<Node> nodes;
     public int width = 20;
