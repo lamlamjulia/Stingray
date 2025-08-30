@@ -1,10 +1,13 @@
 using UnityEngine;
 
+
 public class BlockSpawner: Spawner
 {
+    [Header("BlockSpawner")]
     private static BlockSpawner instance;
     public static BlockSpawner Instance => instance;
     public static string BLOCK = "Block";
+    public BlocksProfile blocksProfile;
 
     protected override void Awake()
     {
@@ -12,12 +15,15 @@ public class BlockSpawner: Spawner
         if (BlockSpawner.instance != null) Debug.LogError("Only 1 Spawner should exist");
         BlockSpawner.instance = this;
     }
-    public virtual void CleanPool()
+    protected override void LoadComponents()
     {
-        this.spawnedCount = 0;
-        foreach(Transform child in this.holder)
-        {
-            DestroyImmediate(child.gameObject);
-        }    
+        base.LoadComponents();
+        this.LoadBlockProfile();
+    }
+    protected virtual void LoadBlockProfile()
+    {
+        if (this.blocksProfile != null) return;
+        this.blocksProfile = Resources.Load<BlocksProfile>("Pikachu");
+        Debug.Log(transform.name + " LoadBlocksProfile", gameObject);
     }
 }
