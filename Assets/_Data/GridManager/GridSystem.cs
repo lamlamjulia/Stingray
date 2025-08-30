@@ -6,8 +6,9 @@ public class GridSystem: GridAbstract
 {
     [Header("GridSystem")]
     public List<Node> nodes;
-    public int width = 18;
-    public int height = 11;
+    public float width = 18;
+    public float height = 11;
+    public float offsetY = 0.5f;
     public BlocksProfile blocksProfile;
 
     protected override void LoadComponents()
@@ -48,7 +49,7 @@ public class GridSystem: GridAbstract
         foreach (Node node in this.nodes)
         {
             pos.x = node.x;
-            pos.y = node.y;
+            pos.y = node.y-this.offsetY;
             Transform block = this.ctrl.blockSpawner.Spawn(BlockSpawner.BLOCK, pos, Quaternion.identity);
             block.gameObject.SetActive(true);
         }
