@@ -16,7 +16,7 @@ public class GridSystem: GridAbstract
         base.LoadComponents();
         this.InitGridSystem();
         //this.Start();
-        //this.LoadBlockProfile();
+        this.LoadBlockProfile();
     }
     protected override void Start()
     {
@@ -24,8 +24,9 @@ public class GridSystem: GridAbstract
     }
     protected virtual void LoadBlockProfile()
     {
-        if(this.blocksProfile != null) return;
-        
+        if (this.blocksProfile != null) return;
+        this.blocksProfile = Resources.Load<BlocksProfile>("Pikachu");
+        Debug.Log(transform.name + " LoadBlocksProfile", gameObject);
     }
     protected virtual void InitGridSystem()
     {
@@ -56,7 +57,12 @@ public class GridSystem: GridAbstract
             pos.x = node.posX;
             pos.y = node.y;
             Transform block = this.ctrl.blockSpawner.Spawn(BlockSpawner.BLOCK, pos, Quaternion.identity);
+            BlockCtrl blockCtrl = block.GetComponent<BlockCtrl>();
+            
+            blockCtrl.blockData.SetNode(node);
             block.gameObject.SetActive(true);
         }
     }
+    
+    
 }
