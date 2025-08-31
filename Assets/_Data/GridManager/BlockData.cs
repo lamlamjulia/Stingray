@@ -12,4 +12,8 @@ public class BlockData: BlockAbstract
     {
         this.node = node;
     }
+    public virtual void SetSprite(Sprite sprite)
+    {
+
+    }
 }

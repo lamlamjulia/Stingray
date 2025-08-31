@@ -6,6 +6,7 @@ public abstract class Spawner : PikaMonoBehaviour
 {
     [Header("Spawner")]
     [SerializeField] protected Transform holder;
+    public Transform Holder => holder;
 
     [SerializeField] protected int spawnedCount = 0;
     public int SpawnedCount => spawnedCount;
@@ -47,11 +48,6 @@ public abstract class Spawner : PikaMonoBehaviour
         {
             prefab.gameObject.SetActive(false);
         }
-    }
-
-    public virtual Transform Spawn(string prefabName, Vector3 spawnPos)
-    {
-        return this.Spawn(prefabName, spawnPos, Quaternion.identity);
     }
 
     public virtual Transform Spawn(string prefabName, Vector3 spawnPos, Quaternion rotation)

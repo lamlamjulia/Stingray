@@ -15,4 +15,6 @@ public class Node
     public Node left;
     public Node right;
     public Node down;
+    public BlockCtrl blockCtrl;
+    public int nodeId;
 }
