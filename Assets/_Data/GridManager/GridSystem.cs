@@ -8,7 +8,7 @@ public class GridSystem: GridAbstract
 
     public float width = 18;
     public float height = 11;
-    public float offsetX = 0.19f;
+    public float offsetX = 0.2f;
     public BlocksProfile blocksProfile;
     public List<Node> nodes;
     public List<int> nodeIds;
@@ -68,8 +68,6 @@ public class GridSystem: GridAbstract
     {
         Vector3 pos = Vector3.zero;
         int blockCount = 4;
-        Debug.Log($"blocksProfile: {this.blocksProfile}");
-        Debug.Log($"sprites: {this.blocksProfile?.sprites}");
         foreach (Sprite sprite in this.blocksProfile.sprites)
         {
             for (int i = 0; i < blockCount; i++)
@@ -78,12 +76,9 @@ public class GridSystem: GridAbstract
                 pos.x = node.posX;
                 pos.y = node.y;
 
-                
-                Debug.Log($"ctrl: {this.ctrl}, blockSpawner: {this.ctrl?.blockSpawner}");
-
                 Transform block = this.ctrl.blockSpawner.Spawn(BlockSpawner.BLOCK, pos, Quaternion.identity);
                 BlockCtrl blockCtrl = block.GetComponent<BlockCtrl>();
-                //blockCtrl.blockData.SetSprite(sprite);
+                blockCtrl.blockData.SetSprite(sprite);
                 //GridManagerCtrl.Instance.gridSystem.blocks.Add(blockCtrl);
 
                 this.LinkNodeBlock(node, blockCtrl);
