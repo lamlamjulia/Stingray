@@ -21,6 +21,7 @@ public class BlockClickable: BlockAbstract
     }
     protected void OnMouseUp()
     {
+        GridManagerCtrl.Instance.SetBlock(this.ctrl);
         Debug.LogWarning(transform.name + " BlockClickable", gameObject);
     }
 }

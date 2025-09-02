@@ -10,6 +10,7 @@ public class BlockCtrl: PikaMonoBehaviour
     public Transform model;
     public Sprite sprite;
     public BlockData blockData;
+    public List<BlockCtrl> neighbors = new List<BlockCtrl>();
     protected override void LoadComponents()
     {
         base.LoadComponents();

@@ -29,7 +29,7 @@ public class GridManagerCtrl : PikaMonoBehaviour
         this.blockSpawner = transform.Find("BlockSpawner").GetComponent<BlockSpawner>();
         Debug.Log(transform.name + " LoadSpawner", gameObject); 
     }
-    protected virtual void SetBlock(BlockCtrl blockCtrl)
+    public virtual void SetBlock(BlockCtrl blockCtrl)
     {
         if (this.firstBlock != null && this.lastBlock != null) 
         {

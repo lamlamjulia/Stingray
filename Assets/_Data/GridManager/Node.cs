@@ -10,7 +10,7 @@ public class Node
     public int y = 0;
     public float posX = 0;
     public int weight = 1;
-    public bool occupied = false;
+    public bool occupied = true;
     public Node up;
     public Node left;
     public Node right;

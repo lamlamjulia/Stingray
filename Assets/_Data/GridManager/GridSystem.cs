@@ -21,6 +21,41 @@ public class GridSystem: GridAbstract
     protected override void Start()
     {
         this.SpawnBlocks();
+        this.FindNodeNeighbors();
+        this.FindBlockNeighbors();
+    }
+    protected virtual void FindNodeNeighbors()
+    {
+        int x, y;
+        foreach (Node node in nodes) 
+        {
+            x = node.x; y = node.y;
+            node.up = this.GetNodeByXY(x, y + 1);
+            node.down = this.GetNodeByXY(x, y - 1);
+            node.left = this.GetNodeByXY(x - 1, y);
+            node.right = this.GetNodeByXY(x + 1, y);
+        }
+
+    }
+    protected virtual Node GetNodeByXY(int x, int y)
+    {
+        foreach (Node node in this.nodes)
+        {
+            if (node.x == x && node.y == y) { return node; }
+        }
+        return null;
+    }
+    protected virtual void FindBlockNeighbors()
+    {
+        foreach(Node node in nodes)
+        {
+            if(node.blockCtrl == null) continue;
+            node.blockCtrl.neighbors.Add(node.up.blockCtrl);
+            node.blockCtrl.neighbors.Add(node.right.blockCtrl);
+            node.blockCtrl.neighbors.Add(node.down.blockCtrl);
+            node.blockCtrl.neighbors.Add(node.left.blockCtrl);
+        }
+
     }
     protected virtual void LoadBlockProfile()
     {
