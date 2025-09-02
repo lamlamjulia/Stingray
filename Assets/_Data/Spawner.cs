@@ -6,7 +6,6 @@ public abstract class Spawner : PikaMonoBehaviour
 {
     [Header("Spawner")]
     [SerializeField] protected Transform holder;
-    public Transform Holder => holder;
 
     [SerializeField] protected int spawnedCount = 0;
     public int SpawnedCount => spawnedCount;

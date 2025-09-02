@@ -52,7 +52,7 @@ public class GridManagerCtrl : PikaMonoBehaviour
     protected virtual void LoadPathFinding()
     {
         if (this.pathfinding != null) return;
-        this.pathfinding = transform.GetComponentInChildren<BFS>();
+        this.pathfinding = transform.GetComponentInChildren<IPathfinding>();
         Debug.LogWarning(transform.name + " LoadPathFinding", gameObject);
     }
 }

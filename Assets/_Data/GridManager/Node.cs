@@ -10,14 +10,15 @@ public class Node
     public int y = 0;
     public float posX = 0;
     public int weight = 1;
-    public bool occupied = true;
+    public bool occupied = false;
     public Node up;
     public Node left;
     public Node right;
     public Node down;
     public BlockCtrl blockCtrl;
+    public NodeTransform nodeTransform;
     public int nodeId;
-    public virtual List<Node> neighbors()
+    public virtual List<Node> Neighbors()
     {
         List<Node> nodes = new List<Node>
         {

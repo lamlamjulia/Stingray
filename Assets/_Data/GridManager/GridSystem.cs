@@ -1,68 +1,75 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class GridSystem: GridAbstract
+public class GridSystem : GridAbstract
 {
-    [Header("GridSystem")]
-
-    public float width = 18;
-    public float height = 11;
-    public float offsetX = 0.2f;
+    [Header("Grid System")]
+    public int width = 18;
+    public int height = 11;
+    private float offsetX = 0.2f;
     public BlocksProfile blocksProfile;
     public List<Node> nodes;
     public List<int> nodeIds;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.InitGridSystem();
-        this.LoadBlockProfile();
+        this.LoadBlockProflie();
     }
+
+    protected virtual void LoadBlockProflie()
+    {
+        if (this.blocksProfile != null) return;
+        this.blocksProfile = Resources.Load<BlocksProfile>("Pikachu");
+        Debug.LogWarning(transform.name + " LoadBlockProflie", gameObject);
+    }
+
     protected override void Start()
     {
+        this.SpawnHolders();
         this.SpawnBlocks();
-        this.FindNodeNeighbors();
-        this.FindBlockNeighbors();
+        this.FindNodesNeighbors();
+        this.FindBlocksNeighbors();
     }
-    protected virtual void FindNodeNeighbors()
+
+    protected virtual void FindNodesNeighbors()
     {
         int x, y;
-        foreach (Node node in nodes) 
+        foreach (Node node in this.nodes)
         {
-            x = node.x; y = node.y;
+            x = node.x;
+            y = node.y;
             node.up = this.GetNodeByXY(x, y + 1);
+            node.right = this.GetNodeByXY(x + 1, y);
             node.down = this.GetNodeByXY(x, y - 1);
             node.left = this.GetNodeByXY(x - 1, y);
-            node.right = this.GetNodeByXY(x + 1, y);
         }
-
     }
+
     protected virtual Node GetNodeByXY(int x, int y)
     {
         foreach (Node node in this.nodes)
         {
-            if (node.x == x && node.y == y) { return node; }
+            if (node.x == x && node.y == y) return node;
         }
+
         return null;
     }
-    protected virtual void FindBlockNeighbors()
+
+    protected virtual void FindBlocksNeighbors()
     {
-        foreach(Node node in nodes)
+        foreach (Node node in this.nodes)
         {
-            if(node.blockCtrl == null) continue;
+            if (node.blockCtrl == null) continue;
             node.blockCtrl.neighbors.Add(node.up.blockCtrl);
             node.blockCtrl.neighbors.Add(node.right.blockCtrl);
             node.blockCtrl.neighbors.Add(node.down.blockCtrl);
             node.blockCtrl.neighbors.Add(node.left.blockCtrl);
         }
+    }
 
-    }
-    protected virtual void LoadBlockProfile()
-    {
-        if (this.blocksProfile != null) return;
-        this.blocksProfile = Resources.Load<BlocksProfile>("Pikachu");
-        Debug.LogWarning(transform.name + " LoadBlocksProfile", gameObject);
-    }
     protected virtual void InitGridSystem()
     {
         if (this.nodes.Count > 0) return;
@@ -72,7 +79,7 @@ public class GridSystem: GridAbstract
         {
             for (int y = 0; y < this.height; y++)
             {
-                Node node = new()
+                Node node = new Node
                 {
                     x = x,
                     y = y,
@@ -85,20 +92,27 @@ public class GridSystem: GridAbstract
             }
         }
     }
-    protected virtual void SpawnNodes()
+
+    protected virtual void SpawnHolders()
     {
         Vector3 pos = Vector3.zero;
         foreach (Node node in this.nodes)
         {
             pos.x = node.posX;
             pos.y = node.y;
-            Transform block = this.ctrl.blockSpawner.Spawn(BlockSpawner.BLOCK, pos, Quaternion.identity);
-            BlockCtrl blockCtrl = block.GetComponent<BlockCtrl>();
-            this.LinkNodeBlock(node, blockCtrl);
-            
-            block.gameObject.SetActive(true);
+
+            Transform blockObj = this.ctrl.blockSpawner.Spawn(BlockSpawner.HOLDER, pos, Quaternion.identity);
+            NodeTransform nodeTransform = blockObj.GetComponent<NodeTransform>();
+            node.nodeTransform = nodeTransform;
+            blockObj.name = "Holder_" + node.x.ToString() + "_" + node.y.ToString();
+            nodeTransform.gameObject.SetActive(true);
+
+            blockObj.gameObject.SetActive(true);
+
+            node.occupied = true;
         }
     }
+
     protected virtual void SpawnBlocks()
     {
         Vector3 pos = Vector3.zero;
@@ -114,17 +128,15 @@ public class GridSystem: GridAbstract
                 Transform block = this.ctrl.blockSpawner.Spawn(BlockSpawner.BLOCK, pos, Quaternion.identity);
                 BlockCtrl blockCtrl = block.GetComponent<BlockCtrl>();
                 blockCtrl.blockData.SetSprite(sprite);
-                //GridManagerCtrl.Instance.gridSystem.blocks.Add(blockCtrl);
 
                 this.LinkNodeBlock(node, blockCtrl);
                 block.name = "Block_" + node.x.ToString() + "_" + node.y.ToString();
 
                 block.gameObject.SetActive(true);
-
-                //this.NodeOccupied(node);
             }
         }
     }
+
     protected virtual Node GetRandomNode()
     {
         Node node;
@@ -147,11 +159,10 @@ public class GridSystem: GridAbstract
         Debug.LogError("Node can't found, this should not happen");
         return null;
     }
+
     protected virtual void LinkNodeBlock(Node node, BlockCtrl blockCtrl)
     {
         blockCtrl.blockData.SetNode(node);
         node.blockCtrl = blockCtrl;
     }
-    
-    
 }

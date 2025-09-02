@@ -20,24 +20,22 @@ public class BFS: GridAbstract, IPathfinding
         while (this.queue.Count > 0)
         {
             Node current = this.Dequeue();
-            current.blockCtrl.blockData.SetColor(Color.black);
 
             if(current == end)
             {
-                this.ConstructPath(startBlock, endBlock);
+                this.ConstructPath(start, end);
                 break;
             }
-            foreach(Node neighbor in current.neighbors())
+            foreach(Node neighbor in current.Neighbors())
             {
                 if(neighbor == null) continue;
                 if(this.IsValidPath(neighbor) && !cameFrom.ContainsKey(neighbor))
                 {
-                    neighbor.blockCtrl.blockData.SetColor(Color.black);
                     this.Enqueue(neighbor);
                     this.cameFrom[neighbor] = current;
                 }
             }
-
+            this.ShowPath();
 
         }
 
@@ -52,25 +50,25 @@ public class BFS: GridAbstract, IPathfinding
         this.queue.RemoveAt(0);
         return node;
     }
-    //protected virtual void ShowPath()
-    //{
-    //    //Vector3 pos;
-    //    foreach(Node node in this.path)
-    //    {
-    //        //
-
-    //    }
-    //}
-    protected virtual void ConstructPath(BlockCtrl start, BlockCtrl end)
+    protected virtual void ShowPath()
     {
-        BlockCtrl currentBlock = end;
-        while (currentBlock != start) 
+        Vector3 pos;
+        foreach (Node node in this.path)
         {
-            Node current = currentBlock.blockData.node;
+            pos = node.nodeTransform.transform.position;
+            Transform linker = this.ctrl.blockSpawner.Spawn(BlockSpawner.LINKER, pos, Quaternion.identity);
+            linker.gameObject.SetActive(true);
+        }
+    }
+    protected virtual void ConstructPath(Node start, Node end)
+    {
+        Node current = end;
+        while (current != start) 
+        {
             path.Add(current);
             current = cameFrom[current];
         }
-        path.Add(start.blockData.node);
+        path.Add(start);
         path.Reverse();
     }
     protected virtual bool IsValidPath(Node node)

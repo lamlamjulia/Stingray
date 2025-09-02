@@ -7,6 +7,8 @@ public class BlockSpawner: Spawner
     private static BlockSpawner instance;
     public static BlockSpawner Instance => instance;
     public static string BLOCK = "Block";
+    public static string LINKER = "Linker";
+    public static string HOLDER = "NodeTransform";
 
     protected override void Awake()
     {
