@@ -17,4 +17,15 @@ public class Node
     public Node down;
     public BlockCtrl blockCtrl;
     public int nodeId;
+    public virtual List<Node> neighbors()
+    {
+        List<Node> nodes = new List<Node>
+        {
+            up,
+            right,
+            down,
+            left
+        };
+        return nodes;
+    }
 }
