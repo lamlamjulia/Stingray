@@ -1,11 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GridManagerCtrl : PikaMonoBehaviour
 {
     [Header("GridManagerCtrl ")]
     private static GridManagerCtrl instance;
     public static GridManagerCtrl Instance => instance;
-    public static string BLOCK = "Block";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public BlockSpawner blockSpawner;
@@ -33,21 +32,53 @@ public class GridManagerCtrl : PikaMonoBehaviour
     }
     public virtual void SetNode(BlockCtrl blockCtrl)
     {
-        if (this.firstBlock != null && this.lastBlock != null) 
-        {            
-            this.pathfinding.FindPath(this.firstBlock, this.lastBlock);
-            this.firstBlock = null;
-            this.lastBlock = null;
-            Debug.LogWarning("Reset blocks");
-            return;
-        }
+        Vector3 pos;
+        Transform chooseObj;
         if (this.firstBlock == null)
         {
             this.firstBlock = blockCtrl;
+            pos = blockCtrl.transform.position;
+            chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
+            chooseObj.gameObject.SetActive(true);
             return;
         }
 
+        // When selecting the second block
         this.lastBlock = blockCtrl;
+        pos = blockCtrl.transform.position;
+        chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
+        chooseObj.gameObject.SetActive(true);
+
+        // ✅ Run pathfinding immediately
+        this.pathfinding.FindPath(this.firstBlock, this.lastBlock);
+        this.firstBlock = null;
+        this.lastBlock = null;
+        Debug.Log("Pathfinding done, reset blocks");
+
+        //if (this.firstBlock != null && this.lastBlock != null)
+        //{
+        //    this.pathfinding.FindPath(this.firstBlock, this.lastBlock);
+        //    this.firstBlock = null;
+        //    this.lastBlock = null;
+        //    Debug.Log("Reset blocks");
+        //    return;
+        //}
+
+        //Vector3 pos;
+        //Transform chooseObj;
+        //if (this.firstBlock == null)
+        //{
+        //    this.firstBlock = blockCtrl;
+        //    pos = blockCtrl.transform.position;
+        //    chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
+        //    chooseObj.gameObject.SetActive(true);
+        //    return;
+        //}
+
+        //this.lastBlock = blockCtrl;
+        //pos = blockCtrl.transform.position;
+        //chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
+        //chooseObj.gameObject.SetActive(true);
     }
     protected virtual void LoadPathFinding()
     {

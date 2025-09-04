@@ -7,7 +7,9 @@ public class BFS: GridAbstract, IPathfinding
     [Header("BFS")]
     public List<Node> queue = new List<Node> ();
     public List<Node> path = new List<Node>();
-    public Dictionary<Node, Node> cameFrom = new Dictionary<Node, Node> ();
+    //public Dictionary<Node, Node> cameFrom = new Dictionary<Node, Node> ();
+    public List<NodeCameFrom> cameFromNodes = new List<NodeCameFrom> ();
+    public List<Node> visited = new List<Node> ();
 
     public virtual void FindPath(BlockCtrl startBlock, BlockCtrl endBlock)
     {
@@ -15,7 +17,10 @@ public class BFS: GridAbstract, IPathfinding
         Node end = endBlock.blockData.node;
 
         this.Enqueue(start);
-        this.cameFrom[start] = start;
+        //this.cameFrom[start] = start;
+        this.cameFromNodes.Add(new NodeCameFrom(start, end));
+        this.visited.Add(start);
+
 
         while (this.queue.Count > 0)
         {
@@ -23,23 +28,27 @@ public class BFS: GridAbstract, IPathfinding
 
             if(current == end)
             {
-                this.ConstructPath(start, end);
+                ConstructPath(start, end);
                 break;
             }
             foreach(Node neighbor in current.Neighbors())
             {
                 if(neighbor == null) continue;
-                if(this.IsValidPath(neighbor) && !cameFrom.ContainsKey(neighbor))
+                if(this.IsValidPath(neighbor, end) && !this.visited.Contains(neighbor))
                 {
                     this.Enqueue(neighbor);
-                    this.cameFrom[neighbor] = current;
+                    this.visited.Add(neighbor);
+                    //this.cameFrom[neighbor] = current;
+                    this.cameFromNodes.Add(new NodeCameFrom(neighbor, current));
                 }
             }
-            this.ShowPath();
-
         }
 
+        this.ShowVisited();
+        this.ShowPath();
+
     }
+    
     protected virtual void Enqueue(Node node)
     {
         this.queue.Add(node);
@@ -50,12 +59,21 @@ public class BFS: GridAbstract, IPathfinding
         this.queue.RemoveAt(0);
         return node;
     }
+    protected virtual void ShowVisited()
+    {
+        foreach (Node node in this.visited)
+        {
+            Vector3 pos = node.nodeObj.transform.position;
+            Transform obj = this.ctrl.blockSpawner.Spawn(BlockSpawner.SCAN, pos, Quaternion.identity);
+            obj.gameObject.SetActive(true);
+        }
+    }
     protected virtual void ShowPath()
     {
         Vector3 pos;
         foreach (Node node in this.path)
         {
-            pos = node.nodeTransform.transform.position;
+            pos = node.nodeObj.transform.position;
             Transform linker = this.ctrl.blockSpawner.Spawn(BlockSpawner.LINKER, pos, Quaternion.identity);
             linker.gameObject.SetActive(true);
         }
@@ -66,13 +84,20 @@ public class BFS: GridAbstract, IPathfinding
         while (current != start) 
         {
             path.Add(current);
-            current = cameFrom[current];
+            //current = cameFrom[current];
+            current = this.GetCameFrom(current);
         }
         path.Add(start);
         path.Reverse();
     }
-    protected virtual bool IsValidPath(Node node)
+    protected virtual Node GetCameFrom(Node node)
     {
+        return this.cameFromNodes.Find(item => item.current == node).cameFrom;
+    }
+    protected virtual bool IsValidPath(Node node, Node startNode)
+    {
+        if (node == startNode) return true;
+
         return !node.occupied;
     }
 }

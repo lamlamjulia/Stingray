@@ -28,7 +28,7 @@ public class GridSystem : GridAbstract
 
     protected override void Start()
     {
-        this.SpawnHolders();
+        this.SpawnNodeObj();
         this.SpawnBlocks();
         this.FindNodesNeighbors();
         this.FindBlocksNeighbors();
@@ -93,22 +93,27 @@ public class GridSystem : GridAbstract
         }
     }
 
-    protected virtual void SpawnHolders()
+    protected virtual void SpawnNodeObj()
     {
         Vector3 pos = Vector3.zero;
         foreach (Node node in this.nodes)
         {
             pos.x = node.posX;
             pos.y = node.y;
+            //node: node in matrix
+            //nodeObj: node in game
+            //obj that has just been spawned
+            Transform obj = this.ctrl.blockSpawner.Spawn(BlockSpawner.NODEOBJ, pos, Quaternion.identity);
+            obj.name = "Holder_" + node.x.ToString() + "_" + node.y.ToString();
+            obj.gameObject.SetActive(true);
 
-            Transform blockObj = this.ctrl.blockSpawner.Spawn(BlockSpawner.HOLDER, pos, Quaternion.identity);
-            NodeTransform nodeTransform = blockObj.GetComponent<NodeTransform>();
-            node.nodeTransform = nodeTransform;
-            blockObj.name = "Holder_" + node.x.ToString() + "_" + node.y.ToString();
-            nodeTransform.gameObject.SetActive(true);
+            NodeObj nodeObj = obj.GetComponent<NodeObj>();
+            nodeObj.gameObject.SetActive(true);
+            nodeObj.SetText(node.y.ToString() + "\n" + node.x.ToString());
+            Color color = node.y%2==0? Color.red : Color.green;
+            nodeObj.SetColor(color);
 
-            blockObj.gameObject.SetActive(true);
-
+            node.nodeObj = nodeObj;
             node.occupied = true;
         }
     }
