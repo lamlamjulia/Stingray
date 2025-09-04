@@ -114,7 +114,7 @@ public class GridSystem : GridAbstract
             nodeObj.SetColor(color);
 
             node.nodeObj = nodeObj;
-            node.occupied = true;
+            
         }
     }
 
@@ -138,6 +138,7 @@ public class GridSystem : GridAbstract
                 block.name = "Block_" + node.x.ToString() + "_" + node.y.ToString();
 
                 block.gameObject.SetActive(true);
+                node.occupied = true;
             }
         }
     }

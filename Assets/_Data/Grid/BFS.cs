@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BFS: GridAbstract, IPathfinding
@@ -92,12 +93,12 @@ public class BFS: GridAbstract, IPathfinding
     }
     protected virtual Node GetCameFrom(Node node)
     {
-        return this.cameFromNodes.Find(item => item.current == node).cameFrom;
+        return this.cameFromNodes.First(item => item.current == node).cameFrom;
     }
-    protected virtual bool IsValidPath(Node node, Node startNode)
+    protected virtual bool IsValidPath(Node node, Node end)
     {
-        if (node == startNode) return true;
+        
 
-        return !node.occupied;
+        return !node.occupied || node == end;
     }
 }

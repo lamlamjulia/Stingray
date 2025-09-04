@@ -7,10 +7,6 @@ public class BlockData: BlockAbstract
 {
     [Header("Block Data")]
     public Node node;
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-    }
     public virtual void SetNode(Node node)
     {
         this.node = node;
