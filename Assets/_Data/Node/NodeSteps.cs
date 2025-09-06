@@ -4,19 +4,21 @@ using System.Collections.Generic;
 using System;
 
 [Serializable]
-public class NodeCameFrom
+public class NodeSteps
 {
     public string nodeId;
     public NodeDirections direction = NodeDirections.Still;
-    
+    public string stepsString = "";
+    public string directionString = "";
     public Node toNode;
     public Node fromNode;
-    public NodeCameFrom(Node fromNode, Node toNode)
+    public int turns = 0;
+    public NodeSteps(Node toNode, Node fromNode)
     {
-        this.nodeId = fromNode.PrintID();
+        this.nodeId = toNode.PrintID();
         this.toNode = toNode;
         this.fromNode = fromNode;
-        this.direction = this.getDirection(fromNode, toNode);
+        this.direction = this.getDirection(toNode, fromNode);
     }
     protected virtual NodeDirections getDirection(Node fromNode, Node toNode)
     {

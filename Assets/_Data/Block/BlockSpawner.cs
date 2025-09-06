@@ -11,6 +11,7 @@ public class BlockSpawner: Spawner
     public static string NODEOBJ = "NodeObj";
     public static string CHOOSE = "Choose";
     public static string SCAN = "Scan";
+    public static string SCANSTEP = "ScanStep";
 
     protected override void Awake()
     {
