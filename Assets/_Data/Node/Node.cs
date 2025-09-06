@@ -18,6 +18,7 @@ public class Node
     public BlockCtrl blockCtrl;
     public NodeObj nodeObj;
     public int nodeId;
+    
     public virtual List<Node> Neighbors()
     {
         List<Node> nodes = new List<Node>
@@ -28,5 +29,9 @@ public class Node
             left
         };
         return nodes;
+    }
+    public virtual string PrintID()
+    {
+        return this.x.ToString() + 'x' + this.y.ToString();
     }
 }

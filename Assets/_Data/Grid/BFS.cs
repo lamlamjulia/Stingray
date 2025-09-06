@@ -8,7 +8,6 @@ public class BFS: GridAbstract, IPathfinding
     [Header("BFS")]
     public List<Node> queue = new List<Node> ();
     public List<Node> path = new List<Node>();
-    //public Dictionary<Node, Node> cameFrom = new Dictionary<Node, Node> ();
     public List<NodeCameFrom> cameFromNodes = new List<NodeCameFrom> ();
     public List<Node> visited = new List<Node> ();
 
@@ -18,7 +17,6 @@ public class BFS: GridAbstract, IPathfinding
         Node end = endBlock.blockData.node;
 
         this.Enqueue(start);
-        //this.cameFrom[start] = start;
         this.cameFromNodes.Add(new NodeCameFrom(start, end));
         this.visited.Add(start);
 
@@ -39,8 +37,7 @@ public class BFS: GridAbstract, IPathfinding
                 {
                     this.Enqueue(neighbor);
                     this.visited.Add(neighbor);
-                    //this.cameFrom[neighbor] = current;
-                    this.cameFromNodes.Add(new NodeCameFrom(neighbor, current));
+                    this.cameFromNodes.Add(new NodeCameFrom(current, neighbor));
                 }
             }
         }
@@ -84,21 +81,19 @@ public class BFS: GridAbstract, IPathfinding
         Node current = end;
         while (current != start) 
         {
+            Debug.Log("Added into path");
             path.Add(current);
-            //current = cameFrom[current];
             current = this.GetCameFrom(current);
         }
         path.Add(start);
         path.Reverse();
     }
-    protected virtual Node GetCameFrom(Node node)
+    protected virtual Node GetCameFrom(Node toNode)
     {
-        return this.cameFromNodes.First(item => item.current == node).cameFrom;
+        return this.cameFromNodes.First(item => item.toNode == toNode).fromNode;
     }
     protected virtual bool IsValidPath(Node node, Node end)
     {
-        
-
         return !node.occupied || node == end;
     }
 }

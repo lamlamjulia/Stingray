@@ -49,7 +49,7 @@ public class GridManagerCtrl : PikaMonoBehaviour
         chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
         chooseObj.gameObject.SetActive(true);
 
-        // ✅ Run pathfinding immediately
+        // Run pathfinding immediately
         this.pathfinding.FindPath(this.firstBlock, this.lastBlock);
         this.firstBlock = null;
         this.lastBlock = null;
