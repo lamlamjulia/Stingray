@@ -21,6 +21,7 @@ public class BlockClickable: BlockAbstract
     }
     protected void OnMouseUp()
     {
+        Debug.LogWarning("Block clicked: " + transform.name);
         GridManagerCtrl.Instance.SetNode(this.ctrl);
     }
 }
