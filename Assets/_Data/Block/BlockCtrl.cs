@@ -9,6 +9,7 @@ public class BlockCtrl: PikaMonoBehaviour
     //public SpriteRenderer spriteRender;
     //public Transform model;
     public SpriteRenderer sprite;
+    public string blockID = "#";
     public BlockData blockData;
     public List<BlockCtrl> neighbors = new List<BlockCtrl>();
     protected override void LoadComponents()

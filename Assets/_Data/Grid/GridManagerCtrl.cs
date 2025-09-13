@@ -8,9 +8,9 @@ public class GridManagerCtrl : PikaMonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public BlockSpawner blockSpawner;
+    public GridBlockHandler blockHandler;
     public IPathfinding pathfinding;
-    public BlockCtrl firstBlock;
-    public BlockCtrl lastBlock;
+    public GridSystem gridSystem;
 
     protected override void Awake()
     {
@@ -30,55 +30,11 @@ public class GridManagerCtrl : PikaMonoBehaviour
         this.blockSpawner = transform.Find("BlockSpawner").GetComponent<BlockSpawner>();
         Debug.Log(transform.name + " LoadSpawner", gameObject); 
     }
-    public virtual void SetNode(BlockCtrl blockCtrl)
+    protected virtual void LoadGridSystem()
     {
-        Vector3 pos;
-        Transform chooseObj;
-        if (this.firstBlock == null)
-        {
-            this.firstBlock = blockCtrl;
-            pos = blockCtrl.transform.position;
-            chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
-            chooseObj.gameObject.SetActive(true);
-            return;
-        }
-
-        // When selecting the second block
-        this.lastBlock = blockCtrl;
-        pos = blockCtrl.transform.position;
-        chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
-        chooseObj.gameObject.SetActive(true);
-
-        // Run pathfinding immediately
-        this.pathfinding.FindPath(this.firstBlock, this.lastBlock);
-        this.firstBlock = null;
-        this.lastBlock = null;
-        Debug.Log("Pathfinding done, reset blocks");
-
-        //if (this.firstBlock != null && this.lastBlock != null)
-        //{
-        //    this.pathfinding.FindPath(this.firstBlock, this.lastBlock);
-        //    this.firstBlock = null;
-        //    this.lastBlock = null;
-        //    Debug.Log("Reset blocks");
-        //    return;
-        //}
-
-        //Vector3 pos;
-        //Transform chooseObj;
-        //if (this.firstBlock == null)
-        //{
-        //    this.firstBlock = blockCtrl;
-        //    pos = blockCtrl.transform.position;
-        //    chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
-        //    chooseObj.gameObject.SetActive(true);
-        //    return;
-        //}
-
-        //this.lastBlock = blockCtrl;
-        //pos = blockCtrl.transform.position;
-        //chooseObj = this.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
-        //chooseObj.gameObject.SetActive(true);
+        if(this.gridSystem != null) return;
+        this.gridSystem = transform.Find("GridSystem").GetComponent<GridSystem>();
+        Debug.Log(transform.name + " LoadGridsystem", gameObject);
     }
     protected virtual void LoadPathFinding()
     {

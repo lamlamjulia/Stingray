@@ -6,13 +6,16 @@ using UnityEngine;
 public class BFS: GridAbstract, IPathfinding
 {
     [Header("BFS")]
-    //public List<Node> queue = new List<Node> ();
     public List<Node> path = new List<Node>();
-    //public List<NodeSteps> cameFromNodes = new List<NodeSteps> ();
-    //public List<Node> visited = new List<Node> ();
     Queue<NodeSteps> nodeQueue = new Queue<NodeSteps>();
     Dictionary<(Node,NodeDirections), int> visitedDic = new Dictionary<(Node, NodeDirections), int>();
-    public virtual void FindPath(BlockCtrl startBlock, BlockCtrl targetBlock)
+    public virtual void DataReset()
+    {
+        this.path = new List<Node>();
+        this.nodeQueue = new Queue<NodeSteps>();
+        this.visitedDic = new Dictionary<(Node, NodeDirections), int>();
+    }
+    public virtual bool FindPath(BlockCtrl startBlock, BlockCtrl targetBlock)
     {
         Node start = startBlock.blockData.node;
         Node target = targetBlock.blockData.node;
@@ -28,31 +31,23 @@ public class BFS: GridAbstract, IPathfinding
         nodeQueue.Enqueue(startStep);
 
         Debug.LogWarning($"Queue count after enqueue = {this.nodeQueue.Count}");
-        //this.Enqueue(start);
         visitedDic[(start, NodeDirections.Still)] = 0;
-        //this.cameFromNodes.Add(new NodeSteps(start, start));
-        //this.visited.Add(start);
         List<NodeSteps> candidates = new List<NodeSteps>();
-        //NodeSteps nodeStep;
-        //List<NodeSteps> steps;
         while (this.nodeQueue.Count > 0)
         {
             var current = nodeQueue.Dequeue();
-            //Debug.LogWarning($"Dequeued: {current.nodeId}");
 
             if (current.toNode == target && current.turns <= 2)
             {
                 Debug.LogWarning("Pair found");
-                //this.path = ConstructFinalPath(current);
+                this.path = ConstructFinalPath(current);
                 candidates.Add(current);
                 continue;
-                //break;
             }
             foreach(Node neighbor in current.toNode.Neighbors())
             {
                 Debug.LogWarning("Testing top!");
                 if (neighbor == null) continue;
-                //if (this.visitedDic.Contains(neighbor)) continue;
                 if(!this.IsValidPath(neighbor, target)) continue;
 
                 var step = new NodeSteps(neighbor, current.toNode);
@@ -74,20 +69,9 @@ public class BFS: GridAbstract, IPathfinding
 
                 visitedDic[key] = newTurns;
 
-                //ShowScanStep(current);
 
                 nodeQueue.Enqueue(step);
 
-                //this.visited.Add(neighbor);
-                //this.cameFromNodes.Add(nodeStep);
-
-                //steps = this.BuildTmpSteps(neighbor, start);
-                //nodeStep.stepsString = this.GetStringFromSteps(steps);
-                //nodeStep.directionString = this.GetDirectionsFromSteps(steps);
-                //nodeStep.turns = this.CountTurnNodes(neighbor, start);    
-                
-                //if(nodeStep.turns > 3) continue;
-                //this.Enqueue(neighbor);
             }
             if (candidates.Count > 0)
             {
@@ -102,9 +86,13 @@ public class BFS: GridAbstract, IPathfinding
             }
         }
 
-        //this.ShowVisited();
         this.ShowPath();
-
+        return this.FoundPath();
+    }
+    protected virtual bool FoundPath()
+    {
+        int nodeCount = this.path.Count;
+        return nodeCount > 0;
     }
     protected virtual int GetPathLength(NodeSteps step)
     {

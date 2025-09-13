@@ -109,9 +109,9 @@ public class GridSystem : GridAbstract
 
             NodeObj nodeObj = obj.GetComponent<NodeObj>();
             nodeObj.gameObject.SetActive(true);
-            nodeObj.SetText(node.y.ToString() + "\n" + node.x.ToString());
-            Color color = node.y%2==0? Color.red : Color.green;
-            nodeObj.SetColor(color);
+            //nodeObj.SetText(node.y.ToString() + "\n" + node.x.ToString());
+            //Color color = node.y%2==0? Color.red : Color.green;
+            //nodeObj.SetColor(color);
 
             node.nodeObj = nodeObj;
             
@@ -135,14 +135,23 @@ public class GridSystem : GridAbstract
                 blockCtrl.blockData.SetSprite(sprite);
 
                 this.LinkNodeBlock(node, blockCtrl);
-                block.name = "Block_" + node.x.ToString() + "_" + node.y.ToString();
+                //block.name = "Block_" + node.x.ToString() + "_" + node.y.ToString();
 
                 block.gameObject.SetActive(true);
-                node.occupied = true;
+                this.OccupyNode(node);
             }
         }
     }
-
+    public virtual void OccupyNode(Node node)
+    {
+        node.occupied = true;
+        node.wasOccupied = true;
+    }
+    public virtual void FreeNode(Node node)
+    {
+        node.occupied = false;
+        node.blockCtrl.sprite.sprite = null;
+    }
     protected virtual Node GetRandomNode()
     {
         Node node;
