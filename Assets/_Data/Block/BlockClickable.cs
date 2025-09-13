@@ -17,11 +17,11 @@ public class BlockClickable: BlockAbstract
         this._collider = GetComponent<BoxCollider>();
         this._collider.isTrigger = true;
         this._collider.size = new Vector3(0.7f, 0.9f, 0.5f);
-        Debug.LogWarning(transform.name + " LoadCollider", gameObject);
+        //Debug.LogWarning(transform.name + " LoadCollider", gameObject);
     }
     protected void OnMouseUp()
     {
-        Debug.LogWarning("Block clicked: " + transform.name);
+        //Debug.LogWarning("Block clicked: " + transform.name);
         GridManagerCtrl.Instance.blockHandler.SetNode(this.ctrl);
     }
 }

@@ -17,7 +17,7 @@ public class NodeObj : PikaMonoBehaviour
     {
         if (this.text != null) return;
         this.text = transform.GetComponentInChildren<TextMeshPro>();
-        Debug.Log(transform.name + " LoadTextMeshPro", gameObject);
+        //Debug.LogWarning(transform.name + " LoadTextMeshPro", gameObject);
     }
     public virtual void SetText(string text)
     {

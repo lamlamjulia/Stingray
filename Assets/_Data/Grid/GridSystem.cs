@@ -11,6 +11,8 @@ public class GridSystem : GridAbstract
     public BlocksProfile blocksProfile;
     public List<Node> nodes;
     public List<int> nodeIds;
+    public int blockSpawnCount;
+    public List<BlockCtrl> activeBlocks;
 
     protected override void LoadComponents()
     {
@@ -23,7 +25,7 @@ public class GridSystem : GridAbstract
     {
         if (this.blocksProfile != null) return;
         this.blocksProfile = Resources.Load<BlocksProfile>("Pikachu");
-        Debug.LogWarning(transform.name + " LoadBlockProflie", gameObject);
+        //Debug.LogWarning(transform.name + " LoadBlockProflie", gameObject);
     }
 
     protected override void Start()
@@ -104,7 +106,7 @@ public class GridSystem : GridAbstract
             //nodeObj: node in game
             //obj that has just been spawned
             Transform obj = this.ctrl.blockSpawner.Spawn(BlockSpawner.NODEOBJ, pos, Quaternion.identity);
-            obj.name = "Holder_" + node.x.ToString() + "_" + node.y.ToString();
+            //obj.name = "Holder_" + node.x.ToString() + "_" + node.y.ToString();
             obj.gameObject.SetActive(true);
 
             NodeObj nodeObj = obj.GetComponent<NodeObj>();
@@ -136,12 +138,14 @@ public class GridSystem : GridAbstract
 
                 this.LinkNodeBlock(node, blockCtrl);
                 //block.name = "Block_" + node.x.ToString() + "_" + node.y.ToString();
-
+                this.activeBlocks.Add(blockCtrl);
+                this.blockSpawnCount++;
                 block.gameObject.SetActive(true);
                 this.OccupyNode(node);
             }
         }
     }
+    
     public virtual void OccupyNode(Node node)
     {
         node.occupied = true;
@@ -151,6 +155,8 @@ public class GridSystem : GridAbstract
     {
         node.occupied = false;
         node.blockCtrl.sprite.sprite = null;
+        this.blockSpawnCount--;
+        this.activeBlocks.Remove(node.blockCtrl);
     }
     protected virtual Node GetRandomNode()
     {

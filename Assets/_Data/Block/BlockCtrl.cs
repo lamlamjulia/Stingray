@@ -23,7 +23,7 @@ public class BlockCtrl: PikaMonoBehaviour
         if (this.sprite != null) return;
         Transform model = transform.Find("Model");
         this.sprite = model.GetComponent<SpriteRenderer>();
-        Debug.Log(transform.name + " LoadModel", gameObject);
+        //Debug.Log(transform.name + " LoadModel", gameObject);
     }
     //public virtual void ReloadModel()
     //{
@@ -34,7 +34,7 @@ public class BlockCtrl: PikaMonoBehaviour
     {
         if (this.blockData != null) return;
         this.blockData = transform.Find("BlockData").GetComponent<BlockData>();
-        Debug.Log(transform.name + " LoadBlockData", gameObject);
+        //Debug.Log(transform.name + " LoadBlockData", gameObject);
     }
     //public virtual void SetSprite(Sprite sprite)
     //{

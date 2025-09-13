@@ -28,18 +28,18 @@ public class GridManagerCtrl : PikaMonoBehaviour
     {
         if (this.blockSpawner != null) return;
         this.blockSpawner = transform.Find("BlockSpawner").GetComponent<BlockSpawner>();
-        Debug.Log(transform.name + " LoadSpawner", gameObject); 
+       // Debug.Log(transform.name + " LoadSpawner", gameObject); 
     }
     protected virtual void LoadGridSystem()
     {
         if(this.gridSystem != null) return;
         this.gridSystem = transform.Find("GridSystem").GetComponent<GridSystem>();
-        Debug.Log(transform.name + " LoadGridsystem", gameObject);
+        //Debug.Log(transform.name + " LoadGridsystem", gameObject);
     }
     protected virtual void LoadPathFinding()
     {
         if (this.pathfinding != null) return;
         this.pathfinding = transform.GetComponentInChildren<IPathfinding>();
-        Debug.LogWarning(transform.name + " LoadPathFinding", gameObject);
+        //Debug.LogWarning(transform.name + " LoadPathFinding", gameObject);
     }
 }

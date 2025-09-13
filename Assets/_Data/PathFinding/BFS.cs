@@ -30,7 +30,7 @@ public class BFS: GridAbstract, IPathfinding
 
         nodeQueue.Enqueue(startStep);
 
-        Debug.LogWarning($"Queue count after enqueue = {this.nodeQueue.Count}");
+        //Debug.LogWarning($"Queue count after enqueue = {this.nodeQueue.Count}");
         visitedDic[(start, NodeDirections.Still)] = 0;
         List<NodeSteps> candidates = new List<NodeSteps>();
         while (this.nodeQueue.Count > 0)
@@ -104,31 +104,6 @@ public class BFS: GridAbstract, IPathfinding
         }
         return length;
     }
-    //protected virtual void Enqueue(Node node)
-    //{
-    //    if (node == null)
-    //    {
-    //        Debug.LogWarning("⚠️ Tried to enqueue NULL node");
-    //        return;
-    //    }
-    //    this.nodeQueue.Add(node);
-    //    Debug.LogWarning($"Enqueued {node.PrintID()}, queue size now {this.nodeQueue.Count}");
-    //}
-    //protected virtual Node Dequeue()
-    //{
-    //    Node node = this.nodeQueue[0];
-    //    this.nodeQueue.RemoveAt(0);
-    //    return node;
-    //}
-    //protected virtual void ShowVisited()
-    //{
-    //    foreach (Node node in this.visitedDic)
-    //    {
-    //        Vector3 pos = node.nodeObj.transform.position;
-    //        Transform obj = this.ctrl.blockSpawner.Spawn(BlockSpawner.SCAN, pos, Quaternion.identity);
-    //        obj.gameObject.SetActive(true);
-    //    }
-    //}
     protected virtual void ShowPath()
     {
         Vector3 pos;
@@ -151,73 +126,12 @@ public class BFS: GridAbstract, IPathfinding
         finalPath.Reverse();
         return finalPath;
     }
-    //protected virtual Node GetFromNode(Node toNode)
-    //{
-    //    return this.GetNodeSteps(toNode).fromNode;
-    //}
-    //protected virtual NodeSteps GetNodeSteps(Node toNode)
-    //{
-    //    return this.cameFromNodes.First(item => item.toNode == toNode);
-    //}
 
     protected virtual bool IsValidPath(Node node, Node end)
     {
         if (node == end) return true;
         return !node.occupied;
     }
-    //protected virtual string GetStringFromSteps(List<NodeSteps> steps)
-    //{
-    //    string stepsString = "";
-    //    foreach (NodeSteps nodeStep in steps)
-    //    {
-    //        stepsString += nodeStep.toNode.PrintID() + "=>";
-    //    }
-    //    return stepsString;
-    //}
-
-    //protected virtual string GetDirectionsFromSteps(List<NodeSteps> steps)
-    //{
-    //    string stepsString = "";
-    //    foreach (NodeSteps nodeStep in steps)
-    //    {
-    //        stepsString += nodeStep.direction + "=>";
-    //    }
-    //    return stepsString;
-    //}
-
-    //protected virtual int CountTurnNodes (Node current, Node start)
-    //{
-    //    int count = 0;
-    //    List<NodeSteps> steps = BuildTmpSteps(current, start);
-    //    count = this.CountTurnSteps(steps);
-    //    return count;
-    //}
-    //protected virtual int CountTurnSteps(List<NodeSteps> nodeSteps)
-    //{
-    //    List<NodeDirections> directions = new List<NodeDirections>();
-    //    NodeDirections dir;
-    //    foreach(NodeSteps step in nodeSteps)
-    //    {
-    //        dir = step.direction;
-    //        if(directions.Contains(dir)) continue;
-    //        directions.Add(dir);
-    //    }
-    //    return directions.Count;
-    //}
-    //protected virtual List<NodeSteps> BuildTmpSteps(Node current, Node start)
-    //{
-    //    List<NodeSteps> tmpPath = new List<NodeSteps>();
-    //    Node checkNode = current;
-    //    for(int i = 0; i < this.cameFromNodes.Count; i++)
-    //    {
-    //        NodeSteps step = this.GetNodeSteps(checkNode);
-    //        tmpPath.Add(step);
-    //        current = step.fromNode;
-    //        if (step.fromNode == start) break;
-    //    }
-    //    //this.ShowScanStep(current);
-    //    return tmpPath;
-    //}
     protected virtual void ShowScanStep(NodeSteps step)
     {
         Vector3 pos = step.toNode.nodeObj.transform.position;
@@ -225,16 +139,16 @@ public class BFS: GridAbstract, IPathfinding
         obj.gameObject.SetActive(true);
         if (step == null)
         {
-            Debug.LogWarning("ShowScanStep: step is null");
+           // Debug.LogWarning("ShowScanStep: step is null");
             return;
         }
         if (step.toNode == null)
         {
-            Debug.LogWarning("ShowScanStep: toNode is null");
+            //Debug.LogWarning("ShowScanStep: toNode is null");
             return;
         }
 
-        Debug.Log($"[SCAN] {step.toNode.PrintID()} dir={step.direction} turns={step.turns}");
+        //Debug.Log($"[SCAN] {step.toNode.PrintID()} dir={step.direction} turns={step.turns}");
 
         if (step.parent?.toNode != null)
         {
