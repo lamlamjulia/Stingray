@@ -46,7 +46,6 @@ public class BFS: GridAbstract, IPathfinding
             }
             foreach(Node neighbor in current.toNode.Neighbors())
             {
-                Debug.LogWarning("Testing top!");
                 if (neighbor == null) continue;
                 if(!this.IsValidPath(neighbor, target)) continue;
 
@@ -68,7 +67,6 @@ public class BFS: GridAbstract, IPathfinding
                 if (visitedDic.TryGetValue(key, out int bestTurns) && bestTurns <= newTurns) continue;
 
                 visitedDic[key] = newTurns;
-
 
                 nodeQueue.Enqueue(step);
 

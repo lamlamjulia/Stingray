@@ -106,14 +106,10 @@ public class GridSystem : GridAbstract
             //nodeObj: node in game
             //obj that has just been spawned
             Transform obj = this.ctrl.blockSpawner.Spawn(BlockSpawner.NODEOBJ, pos, Quaternion.identity);
-            //obj.name = "Holder_" + node.x.ToString() + "_" + node.y.ToString();
             obj.gameObject.SetActive(true);
 
             NodeObj nodeObj = obj.GetComponent<NodeObj>();
             nodeObj.gameObject.SetActive(true);
-            //nodeObj.SetText(node.y.ToString() + "\n" + node.x.ToString());
-            //Color color = node.y%2==0? Color.red : Color.green;
-            //nodeObj.SetColor(color);
 
             node.nodeObj = nodeObj;
             
@@ -137,9 +133,7 @@ public class GridSystem : GridAbstract
                 blockCtrl.blockData.SetSprite(sprite);
 
                 this.LinkNodeBlock(node, blockCtrl);
-                //block.name = "Block_" + node.x.ToString() + "_" + node.y.ToString();
-                this.activeBlocks.Add(blockCtrl);
-                this.blockSpawnCount++;
+                
                 block.gameObject.SetActive(true);
                 this.OccupyNode(node);
             }
@@ -150,6 +144,8 @@ public class GridSystem : GridAbstract
     {
         node.occupied = true;
         node.wasOccupied = true;
+        this.activeBlocks.Add(node.blockCtrl);
+        this.blockSpawnCount++;
     }
     public virtual void FreeNode(Node node)
     {
@@ -157,6 +153,7 @@ public class GridSystem : GridAbstract
         node.blockCtrl.sprite.sprite = null;
         this.blockSpawnCount--;
         this.activeBlocks.Remove(node.blockCtrl);
+        //node.blockCtrl = null;
     }
     protected virtual Node GetRandomNode()
     {
