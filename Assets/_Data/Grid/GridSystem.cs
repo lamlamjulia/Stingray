@@ -12,7 +12,6 @@ public class GridSystem : GridAbstract
     public List<Node> nodes;
     public List<int> nodeIds;
     public int blockSpawnCount;
-    public List<BlockCtrl> activeBlocks;
 
     protected override void LoadComponents()
     {
@@ -144,16 +143,11 @@ public class GridSystem : GridAbstract
     {
         node.occupied = true;
         node.wasOccupied = true;
-        this.activeBlocks.Add(node.blockCtrl);
-        this.blockSpawnCount++;
     }
     public virtual void FreeNode(Node node)
     {
         node.occupied = false;
         node.blockCtrl.sprite.sprite = null;
-        this.blockSpawnCount--;
-        this.activeBlocks.Remove(node.blockCtrl);
-        //node.blockCtrl = null;
     }
     protected virtual Node GetRandomNode()
     {

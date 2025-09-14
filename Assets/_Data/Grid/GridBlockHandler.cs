@@ -10,10 +10,16 @@ public class GridBlockHandler : GridAbstract
     public BlockCtrl firstBlock;
     public BlockCtrl lastBlock;
     public List<BlockCtrl> remainingBlocks;
+    
     public virtual void SetNode(BlockCtrl blockCtrl)
     {
         Vector3 pos;
         Transform chooseObj;
+        if (!hasValidMoves())
+        {
+            Debug.Log("No more moves, shuffle");
+            this.Shuffle();
+        }
         if (this.firstBlock == null)
         {
             this.firstBlock = blockCtrl;
@@ -34,21 +40,21 @@ public class GridBlockHandler : GridAbstract
         {
             bool pathFound = this.ctrl.pathfinding.FindPath(this.firstBlock, this.lastBlock);
             if (pathFound) this.FreeBlock();
-            this.SetRemainingBlocks();
         }
         
         this.firstBlock = null;
         this.lastBlock = null;
         Debug.Log("Remaining block count: " + this.ctrl.gridSystem.blockSpawnCount);
         Debug.Log("Pathfinding done, reset blocks");
-        if (!hasPairsLeft())
-        {
-            this.Shuffle();
-        }
+        
         this.ctrl.pathfinding.DataReset();
     }
-    public virtual bool hasPairsLeft()
-    {        
+    public virtual bool hasValidMoves()
+    {
+        var remainingBlocks = this.ctrl.gridSystem.nodes
+            .Where(n => n.blockCtrl != null)
+            .Select(n => n.blockCtrl)
+            .ToList();
         for(int i = 0; i < remainingBlocks.Count(); i++)
         {
             for(int j = i + 1; j < remainingBlocks.Count(); j++)
@@ -101,10 +107,6 @@ public class GridBlockHandler : GridAbstract
             newNode.occupied = true;
             newNode.nodeObj.transform.position = new Vector3(newNode.x, newNode.y, 0f);
         }        
-    }
-    public virtual void SetRemainingBlocks()
-    {
-        remainingBlocks = this.ctrl.gridSystem.activeBlocks;
     }
     protected virtual void FreeBlock()
     {
