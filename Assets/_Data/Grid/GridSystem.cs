@@ -12,6 +12,7 @@ public class GridSystem : GridAbstract
     public List<Node> nodes;
     public List<int> nodeIds;
     public int blockSpawnCount;
+    public List<BlockCtrl> activeBlocks;
 
     protected override void LoadComponents()
     {
@@ -134,20 +135,29 @@ public class GridSystem : GridAbstract
                 this.LinkNodeBlock(node, blockCtrl);
                 
                 block.gameObject.SetActive(true);
-                this.OccupyNode(node);
+                this.OccupyBlock(blockCtrl);
             }
         }
     }
     
-    public virtual void OccupyNode(Node node)
+    public virtual void OccupyBlock(BlockCtrl block)
     {
-        node.occupied = true;
-        node.wasOccupied = true;
+        block.blockData.node.occupied = true;
+        //block.blockData.wasOccupied = true;
+        this.activeBlocks.Add(block.blockData.ctrl);
     }
-    public virtual void FreeNode(Node node)
+    public virtual void FreeBlock(BlockCtrl block)
     {
-        node.occupied = false;
-        node.blockCtrl.sprite.sprite = null;
+        Node node = block.blockData.node;
+        if (block != null && node != null)
+        {
+            node.occupied = false;
+            block.sprite.sprite = null;
+            //block = null;
+        }
+        
+        this.activeBlocks.Remove(block);  
+        block.gameObject.SetActive(false);
     }
     protected virtual Node GetRandomNode()
     {

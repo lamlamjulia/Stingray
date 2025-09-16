@@ -1,8 +1,9 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.XR;
 
 public class GridBlockHandler : GridAbstract
 {
@@ -10,16 +11,19 @@ public class GridBlockHandler : GridAbstract
     public BlockCtrl firstBlock;
     public BlockCtrl lastBlock;
     public List<BlockCtrl> remainingBlocks;
-    
+    protected override void Start()
+    {
+        SetRemainingBlocks();
+    }
     public virtual void SetNode(BlockCtrl blockCtrl)
     {
         Vector3 pos;
         Transform chooseObj;
-        if (!hasValidMoves())
-        {
-            Debug.Log("No more moves, shuffle");
-            this.Shuffle();
-        }
+        //if (!hasValidMoves())
+        //{
+        //    Debug.Log("No more moves, shuffle");
+        //    this.Shuffle();
+        //}
         if (this.firstBlock == null)
         {
             this.firstBlock = blockCtrl;
@@ -39,7 +43,7 @@ public class GridBlockHandler : GridAbstract
         if (this.firstBlock.blockID == this.lastBlock.blockID && this.firstBlock.blockData.ctrl != this.lastBlock.blockData.ctrl)
         {
             bool pathFound = this.ctrl.pathfinding.FindPath(this.firstBlock, this.lastBlock);
-            if (pathFound) this.FreeBlock();
+            if (pathFound) this.FreeBlocks();
         }
         
         this.firstBlock = null;
@@ -67,50 +71,45 @@ public class GridBlockHandler : GridAbstract
         }
         return false;
     }
-    
+    public virtual void SetRemainingBlocks()
+    {
+        remainingBlocks = this.ctrl.gridSystem.activeBlocks;
+    }
     public virtual void Shuffle()
     {
-        List<Node> occupiedNodes = new List<Node>();
-        foreach(BlockCtrl block in remainingBlocks)
+        Debug.LogWarning("Shuffle() called, remaining count = " + remainingBlocks.Count);
+        List<BlockCtrl> activeBlocks = remainingBlocks
+            .Where(n => n!= null && n.blockData != null && n.blockData.node != null)
+            .ToList();
+        if(activeBlocks.Count <= 1)
         {
-            int x = block.blockData.node.x;
-            int y = block.blockData.node.y;
-            if(block.blockData.node != null && x > 0 && y > 0 && x < this.ctrl.gridSystem.width - 1 && y < this.ctrl.gridSystem.height-1)
-                occupiedNodes.Add(block.blockData.node);
+            Debug.LogWarning("No active blocks!");
+            return;
         }
-        //clear old links
-        foreach (BlockCtrl block in remainingBlocks)
-        {
-            Node oldNode = block.blockData.node;
-            oldNode.blockCtrl = null;
-            oldNode.occupied = false;
-        }
+        List<Sprite> sprites = activeBlocks
+            .Where(b => b.blockData.ctrl.sprite.sprite != null)
+            .Select(b => b.blockData.ctrl.sprite.sprite)
+            .ToList();
         //shuffle
-        for (int i = occupiedNodes.Count - 1; i > 0; i--)
+        for (int i = sprites.Count - 1; i > 0; i--)
         {
             int ran = Random.Range(0, i + 1);
-            (occupiedNodes[i], occupiedNodes[ran]) = (occupiedNodes[ran], occupiedNodes[i]);
-            Debug.Log("Shuffle called");
+            (sprites[i], sprites[ran]) = (sprites[ran], sprites[i]);
+            Debug.Log("Shuffling");
         }
-        
-        //reassign
-        for(int i = 0; i < remainingBlocks.Count(); i++)
+        for (int i = 0; i < activeBlocks.Count; i++)
         {
-            BlockCtrl block = remainingBlocks[i];
-            Node oldNode = block.blockData.node;
-            Node newNode = occupiedNodes[i];
-            
-            if(oldNode != null) oldNode = null;
-
-            block.blockData.SetNode(newNode);
-            newNode.blockCtrl = block;
-            newNode.occupied = true;
-            newNode.nodeObj.transform.position = new Vector3(newNode.x, newNode.y, 0f);
-        }        
+            if(sprites[i] != null)
+                activeBlocks[i].blockData.SetSprite(sprites[i]);
+            else
+                Debug.LogWarning("Skipped null blocks");
+            Debug.LogWarning("Reassign blocks");
+        }
+        Debug.LogWarning("Shuffle done!");
     }
-    protected virtual void FreeBlock()
+    protected virtual void FreeBlocks()
     {
-        this.ctrl.gridSystem.FreeNode(this.firstBlock.blockData.node);
-        this.ctrl.gridSystem.FreeNode(this.lastBlock.blockData.node);
+        this.ctrl.gridSystem.FreeBlock(this.firstBlock);
+        this.ctrl.gridSystem.FreeBlock(this.lastBlock);
     }
 }

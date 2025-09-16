@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GridAbstract : PikaMonoBehaviour
 {
     [Header("GridAbstract")]
     public GridManagerCtrl ctrl;
-
+    
     protected override void LoadComponents()
     {
         base.LoadComponents();
