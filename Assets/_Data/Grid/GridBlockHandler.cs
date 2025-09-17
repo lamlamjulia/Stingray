@@ -19,11 +19,7 @@ public class GridBlockHandler : GridAbstract
     {
         Vector3 pos;
         Transform chooseObj;
-        //if (!hasValidMoves())
-        //{
-        //    Debug.Log("No more moves, shuffle");
-        //    this.Shuffle();
-        //}
+        
         if (this.firstBlock == null)
         {
             this.firstBlock = blockCtrl;
@@ -111,5 +107,10 @@ public class GridBlockHandler : GridAbstract
     {
         this.ctrl.gridSystem.FreeBlock(this.firstBlock);
         this.ctrl.gridSystem.FreeBlock(this.lastBlock);
+        if (!hasValidMoves())
+        {
+            Debug.Log("No more moves, shuffle");
+            this.Shuffle();
+        }
     }
 }

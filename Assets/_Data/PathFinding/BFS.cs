@@ -37,13 +37,7 @@ public class BFS: GridAbstract, IPathfinding
         {
             var current = nodeQueue.Dequeue();
 
-            if (current.toNode == target && current.turns <= 2)
-            {
-                Debug.LogWarning("Pair found");
-                this.path = ConstructFinalPath(current);
-                candidates.Add(current);
-                continue;
-            }
+            
             foreach(Node neighbor in current.toNode.Neighbors())
             {
                 if (neighbor == null) continue;
@@ -60,6 +54,12 @@ public class BFS: GridAbstract, IPathfinding
                 
                 step.turns = newTurns;
 
+                if (neighbor == target && current.turns <= 2)
+                {
+                    Debug.LogWarning("Pair found");
+                    this.path = ConstructFinalPath(current);
+                    return true;
+                }
                 if (newTurns > 2) continue;
 
                 var key = (neighbor, step.direction);
@@ -76,7 +76,7 @@ public class BFS: GridAbstract, IPathfinding
                 var best = candidates.OrderBy(s => s.turns).ThenBy(s => GetPathLength(s)).First();
                 this.path = ConstructFinalPath(best);
                 Debug.LogWarning($"Best path chosen with {best.turns} turns, length={GetPathLength(best)}");
-                ShowScanStep(current);
+                //ShowScanStep(current);
             }
             else
             {
@@ -130,29 +130,29 @@ public class BFS: GridAbstract, IPathfinding
         if (node == end) return true;
         return !node.occupied;
     }
-    protected virtual void ShowScanStep(NodeSteps step)
-    {
-        Vector3 pos = step.toNode.nodeObj.transform.position;
-        Transform obj = BlockSpawner.Instance.Spawn(BlockSpawner.SCANSTEP, pos, Quaternion.identity);
-        obj.gameObject.SetActive(true);
-        if (step == null)
-        {
-           // Debug.LogWarning("ShowScanStep: step is null");
-            return;
-        }
-        if (step.toNode == null)
-        {
-            //Debug.LogWarning("ShowScanStep: toNode is null");
-            return;
-        }
+    //protected virtual void ShowScanStep(NodeSteps step)
+    //{
+    //    Vector3 pos = step.toNode.nodeObj.transform.position;
+    //    Transform obj = BlockSpawner.Instance.Spawn(BlockSpawner.SCANSTEP, pos, Quaternion.identity);
+    //    obj.gameObject.SetActive(true);
+    //    if (step == null)
+    //    {
+    //       // Debug.LogWarning("ShowScanStep: step is null");
+    //        return;
+    //    }
+    //    if (step.toNode == null)
+    //    {
+    //        //Debug.LogWarning("ShowScanStep: toNode is null");
+    //        return;
+    //    }
 
-        //Debug.Log($"[SCAN] {step.toNode.PrintID()} dir={step.direction} turns={step.turns}");
+    //    //Debug.Log($"[SCAN] {step.toNode.PrintID()} dir={step.direction} turns={step.turns}");
 
-        if (step.parent?.toNode != null)
-        {
-            Vector3 from = new Vector3(step.parent.toNode.posX, step.parent.toNode.y, 0);
-            Vector3 to = new Vector3(step.toNode.posX, step.toNode.y, 0);
-            Debug.DrawLine(from, to, Color.black, 1f);
-        }
-    }
+    //    if (step.parent?.toNode != null)
+    //    {
+    //        Vector3 from = new Vector3(step.parent.toNode.posX, step.parent.toNode.y, 0);
+    //        Vector3 to = new Vector3(step.toNode.posX, step.toNode.y, 0);
+    //        Debug.DrawLine(from, to, Color.black, 1f);
+    //    }
+    //}
 }
