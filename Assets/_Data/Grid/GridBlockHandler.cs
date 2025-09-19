@@ -44,27 +44,40 @@ public class GridBlockHandler : GridAbstract
         
         this.firstBlock = null;
         this.lastBlock = null;
-        Debug.Log("Remaining block count: " + this.ctrl.gridSystem.blockSpawnCount);
         Debug.Log("Pathfinding done, reset blocks");
-        
+        if (!hasValidMoves())
+        {
+            Debug.Log("No more moves, shuffle");
+            this.Shuffle();
+        }
         this.ctrl.pathfinding.DataReset();
     }
     public virtual bool hasValidMoves()
     {
         var remainingBlocks = this.ctrl.gridSystem.nodes
-            .Where(n => n.blockCtrl != null)
+            .Where(n => n.blockCtrl != null && n.blockCtrl.gameObject.activeInHierarchy)
             .Select(n => n.blockCtrl)
             .ToList();
+        if(remainingBlocks.Count <= 1) return false;
+        Debug.LogWarning("Check hasValidMoves");
         for(int i = 0; i < remainingBlocks.Count(); i++)
         {
             for(int j = i + 1; j < remainingBlocks.Count(); j++)
             {
                 BlockCtrl a = remainingBlocks[i];
                 BlockCtrl b = remainingBlocks[j];
-                if(a.blockID != b.blockID) continue;
-                if(this.ctrl.pathfinding.FindPath(a,b)) return true;
+                Debug.LogWarning("for loop hasValidMoves");
+                if (a == null|| b == null) continue;
+                if (a.blockID != b.blockID) continue;
+
+                if (this.ctrl.pathfinding.FindPath(a, b))
+                {
+                    Debug.LogWarning("hasValidMoves: true");
+                    return true; 
+                }
             }
         }
+        Debug.LogWarning("hasValidMoves: false");
         return false;
     }
     public virtual void SetRemainingBlocks()
