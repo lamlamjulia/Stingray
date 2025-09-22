@@ -89,11 +89,6 @@ public class BFS: GridAbstract, IPathfinding
         return false;
 
     }
-    //protected virtual bool FoundPath()
-    //{
-    //    int nodeCount = this.path.Count;
-    //    return nodeCount > 0;
-    //}
     protected virtual int GetPathLength(NodeSteps step)
     {
         int length = 0;

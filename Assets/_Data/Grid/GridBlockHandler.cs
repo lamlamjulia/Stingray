@@ -11,6 +11,8 @@ public class GridBlockHandler : GridAbstract
     public BlockCtrl firstBlock;
     public BlockCtrl lastBlock;
     public List<BlockCtrl> remainingBlocks;
+    public Transform firstChooseObj;
+    public Transform secondChooseObj;
     protected override void Start()
     {
         SetRemainingBlocks();
@@ -18,32 +20,38 @@ public class GridBlockHandler : GridAbstract
     public virtual void SetNode(BlockCtrl blockCtrl)
     {
         Vector3 pos;
-        Transform chooseObj;
-        
+
         if (this.firstBlock == null)
         {
             this.firstBlock = blockCtrl;
             pos = blockCtrl.transform.position;
-            chooseObj = this.ctrl.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
-            chooseObj.gameObject.SetActive(true);
+            firstChooseObj = this.ctrl.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
+            firstChooseObj.gameObject.SetActive(true);
             return;
         }
 
         // When selecting the second block
         this.lastBlock = blockCtrl;
         pos = blockCtrl.transform.position;
-        chooseObj = this.ctrl.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
-        chooseObj.gameObject.SetActive(true);
+        secondChooseObj = this.ctrl.blockSpawner.Spawn(BlockSpawner.CHOOSE, pos, Quaternion.identity);
+        secondChooseObj.gameObject.SetActive(true);
 
         // Run pathfinding immediately
         if (this.firstBlock.blockID == this.lastBlock.blockID && this.firstBlock.blockData.ctrl != this.lastBlock.blockData.ctrl)
         {
             bool pathFound = this.ctrl.pathfinding.FindPath(this.firstBlock, this.lastBlock);
-            if (pathFound) this.FreeBlocks();
+            if (pathFound)
+            {
+                this.FreeBlocks();
+            }
         }
-        
+
+        if (this.firstChooseObj != null) Destroy(this.firstChooseObj.gameObject);
+        if (this.secondChooseObj != null) Destroy(this.secondChooseObj.gameObject);
         this.firstBlock = null;
         this.lastBlock = null;
+        this.firstChooseObj = null;
+        this.secondChooseObj = null;
         Debug.Log("Pathfinding done, reset blocks");
         if (!hasValidMoves())
         {
@@ -59,25 +67,21 @@ public class GridBlockHandler : GridAbstract
             .Select(n => n.blockCtrl)
             .ToList();
         if(remainingBlocks.Count <= 1) return false;
-        Debug.LogWarning("Check hasValidMoves");
         for(int i = 0; i < remainingBlocks.Count(); i++)
         {
             for(int j = i + 1; j < remainingBlocks.Count(); j++)
             {
                 BlockCtrl a = remainingBlocks[i];
                 BlockCtrl b = remainingBlocks[j];
-                Debug.LogWarning("for loop hasValidMoves");
                 if (a == null|| b == null) continue;
                 if (a.blockID != b.blockID) continue;
 
                 if (this.ctrl.pathfinding.FindPath(a, b))
                 {
-                    Debug.LogWarning("hasValidMoves: true");
                     return true; 
                 }
             }
         }
-        Debug.LogWarning("hasValidMoves: false");
         return false;
     }
     public virtual void SetRemainingBlocks()
