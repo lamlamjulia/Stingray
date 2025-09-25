@@ -35,7 +35,6 @@ public class GridSystem : GridAbstract
         this.FindNodesNeighbors();
         this.FindBlocksNeighbors();
     }
-
     protected virtual void FindNodesNeighbors()
     {
         int x, y;

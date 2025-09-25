@@ -38,8 +38,7 @@ public class BFS: GridAbstract, IPathfinding
         while (this.nodeQueue.Count > 0)
         {
             var current = nodeQueue.Dequeue();
-
-            
+                        
             foreach(Node neighbor in current.toNode.Neighbors())
             {
                 if (neighbor == null) continue;
@@ -66,7 +65,6 @@ public class BFS: GridAbstract, IPathfinding
                     }
                     continue;
                 }
-                
 
                 var key = (neighbor, step.direction);
 

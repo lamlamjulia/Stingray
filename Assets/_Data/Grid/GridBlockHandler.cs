@@ -13,9 +13,14 @@ public class GridBlockHandler : GridAbstract
     public List<BlockCtrl> remainingBlocks;
     public Transform firstChooseObj;
     public Transform secondChooseObj;
-    protected override void Start()
+
+    protected override void Reset()
     {
-        SetRemainingBlocks();
+        base.Reset();
+    }
+    public virtual void ResetButtonClicked()
+    {
+        this.Reset();
     }
     public virtual void SetNode(BlockCtrl blockCtrl)
     {
@@ -62,11 +67,14 @@ public class GridBlockHandler : GridAbstract
     }
     public virtual bool hasValidMoves()
     {
-        var remainingBlocks = this.ctrl.gridSystem.nodes
+        remainingBlocks = this.ctrl.gridSystem.nodes
             .Where(n => n.blockCtrl != null && n.blockCtrl.gameObject.activeInHierarchy)
             .Select(n => n.blockCtrl)
             .ToList();
-        if(remainingBlocks.Count <= 1) return false;
+        if (remainingBlocks.Count <= 1)
+        {
+            return false;
+        }
         for(int i = 0; i < remainingBlocks.Count(); i++)
         {
             for(int j = i + 1; j < remainingBlocks.Count(); j++)
@@ -84,10 +92,7 @@ public class GridBlockHandler : GridAbstract
         }
         return false;
     }
-    public virtual void SetRemainingBlocks()
-    {
-        remainingBlocks = this.ctrl.gridSystem.activeBlocks;
-    }
+    
     public virtual void Shuffle()
     {
         Debug.LogWarning("Shuffle() called, remaining count = " + remainingBlocks.Count);
@@ -96,7 +101,7 @@ public class GridBlockHandler : GridAbstract
             .ToList();
         if(activeBlocks.Count <= 1)
         {
-            Debug.LogWarning("No active blocks!");
+            this.Reset();
             return;
         }
         List<Sprite> sprites = activeBlocks
@@ -116,7 +121,6 @@ public class GridBlockHandler : GridAbstract
                 activeBlocks[i].blockData.SetSprite(sprites[i]);
             else
                 Debug.LogWarning("Skipped null blocks");
-            Debug.LogWarning("Reassign blocks");
         }
         Debug.LogWarning("Shuffle done!");
     }
@@ -126,7 +130,6 @@ public class GridBlockHandler : GridAbstract
         this.ctrl.gridSystem.FreeBlock(this.lastBlock);
         if (!hasValidMoves())
         {
-            Debug.Log("No more moves, shuffle");
             this.Shuffle();
         }
     }
