@@ -15,6 +15,6 @@ public class BlockAbstract : PikaMonoBehaviour
     {
         if(this.ctrl != null) return;
         this.ctrl = transform.parent.GetComponent<BlockCtrl>();
-        Debug.Log(transform.name + " LoadCtrl", gameObject);
+        //Debug.Log(transform.name + " LoadCtrl", gameObject);
     }
 }

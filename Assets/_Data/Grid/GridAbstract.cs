@@ -17,6 +17,6 @@ public class GridAbstract : PikaMonoBehaviour
     {
         if (this.ctrl != null) return;
         this.ctrl = transform.parent.GetComponent<GridManagerCtrl>();
-        Debug.Log(transform.name + " LoadCtrl", gameObject);
+        //Debug.Log(transform.name + " LoadCtrl", gameObject);
     }
 }

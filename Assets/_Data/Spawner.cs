@@ -23,7 +23,7 @@ public abstract class Spawner : PikaMonoBehaviour
     {
         if (this.holder != null) return;
         this.holder = transform.Find("Holder");
-        Debug.LogWarning(transform.name + ": LoadHodler", gameObject);
+        //Debug.LogWarning(transform.name + ": LoadHodler", gameObject);
     }
 
     protected virtual void LoadPrefabs()
@@ -38,7 +38,7 @@ public abstract class Spawner : PikaMonoBehaviour
 
         this.HidePrefabs();
 
-        Debug.LogWarning(transform.name + ": LoadPrefabs", gameObject);
+        //Debug.LogWarning(transform.name + ": LoadPrefabs", gameObject);
     }
 
     protected virtual void HidePrefabs()
@@ -54,7 +54,7 @@ public abstract class Spawner : PikaMonoBehaviour
         Transform prefab = this.GetPrefabByName(prefabName);
         if (prefab == null)
         {
-            Debug.LogWarning("Prefab not found: " + prefabName);
+            //Debug.LogWarning("Prefab not found: " + prefabName);
             return null;
         }
 

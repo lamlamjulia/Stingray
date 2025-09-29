@@ -27,7 +27,7 @@ public class BFS: GridAbstract, IPathfinding
 
         startStep.turns = 0;
 
-        Debug.LogWarning($"FindPath called: start={(start == null ? "NULL" : start.PrintID())}, target={(target == null ? "NULL" : target.PrintID())}");
+        //Debug.LogWarning($"FindPath called: start={(start == null ? "NULL" : start.PrintID())}, target={(target == null ? "NULL" : target.PrintID())}");
 
         nodeQueue.Enqueue(startStep);
 
@@ -80,10 +80,10 @@ public class BFS: GridAbstract, IPathfinding
         {
             var best = candidates.OrderBy(s => s.turns).ThenBy(s => GetPathLength(s)).First();
             this.path = ConstructFinalPath(best);
-            Debug.LogWarning($"Best path chosen with {best.turns} turns, length={GetPathLength(best)}");
+            //Debug.LogWarning($"Best path chosen with {best.turns} turns, length={GetPathLength(best)}");
             return true;
         }
-        Debug.LogWarning("No valid path found");
+        //Debug.LogWarning("No valid path found");
         return false;
 
     }

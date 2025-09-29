@@ -35,6 +35,7 @@ public class GridSystem : GridAbstract
         this.FindNodesNeighbors();
         this.FindBlocksNeighbors();
     }
+    
     protected virtual void FindNodesNeighbors()
     {
         int x, y;
@@ -177,7 +178,7 @@ public class GridSystem : GridAbstract
             if (node.blockCtrl == null) return node;
         }
 
-        Debug.LogError("Node can't found, this should not happen");
+        //Debug.LogError("Node can't found, this should not happen");
         return null;
     }
 

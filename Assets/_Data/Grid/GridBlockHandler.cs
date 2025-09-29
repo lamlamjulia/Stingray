@@ -57,10 +57,10 @@ public class GridBlockHandler : GridAbstract
         this.lastBlock = null;
         this.firstChooseObj = null;
         this.secondChooseObj = null;
-        Debug.Log("Pathfinding done, reset blocks");
+        //Debug.Log("Pathfinding done, reset blocks");
         if (!hasValidMoves())
         {
-            Debug.Log("No more moves, shuffle");
+            //Debug.Log("No more moves, shuffle");
             this.Shuffle();
         }
         this.ctrl.pathfinding.DataReset();
@@ -95,7 +95,7 @@ public class GridBlockHandler : GridAbstract
     
     public virtual void Shuffle()
     {
-        Debug.LogWarning("Shuffle() called, remaining count = " + remainingBlocks.Count);
+        //Debug.LogWarning("Shuffle() called, remaining count = " + remainingBlocks.Count);
         List<BlockCtrl> activeBlocks = remainingBlocks
             .Where(n => n!= null && n.blockData != null && n.blockData.node != null)
             .ToList();
@@ -113,16 +113,16 @@ public class GridBlockHandler : GridAbstract
         {
             int ran = Random.Range(0, i + 1);
             (sprites[i], sprites[ran]) = (sprites[ran], sprites[i]);
-            Debug.Log("Shuffling");
+            //Debug.Log("Shuffling");
         }
         for (int i = 0; i < activeBlocks.Count; i++)
         {
             if(sprites[i] != null)
                 activeBlocks[i].blockData.SetSprite(sprites[i]);
-            else
-                Debug.LogWarning("Skipped null blocks");
+            //else
+            //    Debug.LogWarning("Skipped null blocks");
         }
-        Debug.LogWarning("Shuffle done!");
+        //Debug.LogWarning("Shuffle done!");
     }
     protected virtual void FreeBlocks()
     {
